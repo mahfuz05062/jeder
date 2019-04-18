@@ -56,7 +56,8 @@ To evaluate a dataset, use the `run` subcommand, along with a `hit_spec` to
 define hits, along with the path to your dataset (`input`), and a path to save
 the results (`output`).
 
-Input File 
+Input File Format
+-----------------
 
 `input` will be read in using `pandas.read_table()`, which expects
 tab-delimited, long-form data. Columns must be named, but can be named anything
@@ -66,6 +67,28 @@ following information in your input file:
   * `expid` some unique (within each replicate) identifier for this observation in the screen.
   * `repid` some identifier describing to which replicate does this observation belong.
   * one or more data columns, referenced in the `hit_spec` passed on the command line.
+
+Hit Specification
+-----------------
+```
+hit_spec: A "hit" is defined using a combination of threholds on one or more
+         columns. Use the column names from the input file as variables.
+         
+         Currently supported syntax
+         BASIC AND "(score < -0.08) & (pvalue < 0.05)"
+         RELATIVE  "(col_A > col_B) & (col_C > 0)"
+
+         Future work: 
+
+         NO SPACES "(score<-0.08)&(pvalue<0.05)"
+         ORs       "(score < -0.08) | (score  > 0.08)"
+
+         Nested expressions are not allowed, and evaluated left to right.
+         e.g. ( A | B & C) is evaluated as ((A | B) & C)
+         If you need more complex logic, you will have to preprocess
+         your data, and include the result in a column 
+```
+
 
 Example
 -------
