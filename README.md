@@ -4,9 +4,9 @@ JEDER
 Joint Estimate of Data and Error Rates
 --------------------------------------
 
-The goal of this software is to jointly estimate the most likely underlying data and error rates of an experimental screen using technical or biological replicates. Alternatives to this approach include relying on an external gold-standard, or applying a "rule of thumb" on replicate data to generate a gold standard. Often, the former is unavailable, and the latter is circular, as such a "rule of thumb" assumes error rates are within a given range, and the error estimates will depend heavily on the rule. Such a rule might take the following form: "Any experiment in our screen will be considered a true-positive "hit" if it qualifies as a "hit" in two or more out of our six technical replicates." JEDER estimates the most likely False Positive Rate (FPR), False Negative Rate (FNR), and the underlying "true" data profile simultaniously, using a Markov-Chain Monte-Carlo approach.
+The goal of this software is to jointly estimate the most likely underlying data and error rates of an experimental screen using technical or biological replicates. Alternatives to this approach include relying on an external gold-standard, or applying a "rule of thumb" on replicate data to generate a gold standard. Often, the former is unavailable, and the latter is circular, as such a "rule of thumb" assumes error rates are within a given range, and the error estimates will depend heavily on the rule. Such a rule might take the following form: "Any experiment in our screen will be considered a true-positive "hit" if it qualifies as a "hit" in two or more out of our six technical replicates." JEDER estimates the most likely False Positive Rate (FPR), False Negative Rate (FNR), and the underlying "true" data profile simultaneously, using a Markov-Chain Monte-Carlo approach.
 
-JEDER estimates rates for Boolean data only. It therefore takes in quantitative data, and a user defined rule/threshold for what constitutes a "hit" in each individual replicate; a so called `hit_spec`. So if, for example, you want to evaluate the data at several thresholds, or wish to consider postive and negative values seaparately, these consitute individual and separate runs, each with a different `hit_spec`.
+JEDER estimates rates for Boolean data only. It therefore takes in quantitative data, and a user defined rule/threshold for what constitutes a "hit" in each individual replicate; a so called `hit_spec`. So if, for example, you want to evaluate the data at several thresholds, or wish to consider positive and negative values separately, these constitute individual and separate runs, each with a different `hit_spec`.
 
 Installation
 ------------
@@ -22,7 +22,7 @@ For a comprehensive list of options, run `jeder.py --help`.
 To evaluate a dataset, use the `run` subcommand, along with a `hit_spec` to define a hit, along with the path to your dataset (`input`), and a path to save the results (`output`). `input` will be read in using `pandas.read_table()`, which expects long-form data. Columns must be named, but can be named anything you like, as you will tell JEDER which columns to look at for what information. You must supply the following information in your input file:
   * `expid` some unique (within each replicate) identifier for this observation in the screen.
   * `repid` some identifier describing to which replicate does this observation belong.
-  * `hit_spec` a rule for defining a hit. See `jeder.py --help` for syntax definition.
+  * one or more data columns, referenced in the `hit_spec` passed on the command line.
   
 Example
 -------
